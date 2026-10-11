@@ -1,69 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Premium Shop with Cart Logic</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Shop premium tech gear." />
+  <title>Premium Shop with Cart Logic</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+  </style>
 </head>
+<body class="bg-gray-50 min-h-screen font-sans text-slate-900">
+  <nav class="bg-white/80 backdrop-blur-md shadow-sm py-4 px-6 md:px-8 flex justify-between items-center sticky top-0 z-50 border-b border-gray-100">
+    <a href="#shop" class="text-xl font-black tracking-tighter text-slate-900" aria-label="Platform home">PLATFORM.</a>
+    <ul class="hidden md:flex gap-8 text-sm font-medium text-slate-600">
+      <li><a href="#shop" class="hover:text-black transition-colors">Shop</a></li>
+      <li><a href="#collections" class="hover:text-black transition-colors">Collections</a></li>
+    </ul>
+    <div class="flex items-center gap-6">
+      <button id="cart-button" type="button" class="relative cursor-pointer group" aria-label="Shopping cart, 0 items">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-slate-700 group-hover:text-black transition-colors" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
+        </svg>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold h-5 w-5 items-center justify-center rounded-full border-2 border-white hidden">0</span>
+      </button>
+      <button id="account-button" type="button" class="bg-slate-900 text-white px-5 py-2 rounded-full text-xs font-semibold hover:bg-black transition-all">Account</button>
+    </div>
+  </nav>
 
-<body class="bg-gray-50 min-h-screen font-sans">
+  <main id="shop" class="max-w-7xl mx-auto px-6 py-10 md:p-12">
+    <header class="mb-8">
+      <p class="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">Curated essentials</p>
+      <h1 class="text-3xl md:text-4xl font-black tracking-tight mt-2">Featured products</h1>
+      <p class="text-slate-500 mt-3">Thoughtfully selected gear for modern workflows.</p>
+    </header>
 
-    <nav
-        class="bg-white/80 backdrop-blur-md shadow-sm py-4 px-8 flex justify-between items-center sticky top-0 z-50 border-b border-gray-100">
-        <div class="text-xl font-black tracking-tighter text-slate-900">PLATFORM.</div>
-
-        <ul class="hidden md:flex gap-8 text-sm font-medium text-slate-600">
-            <li class="hover:text-black cursor-pointer transition-colors">Shop</li>
-            <li class="hover:text-black cursor-pointer transition-colors">Collections</li>
-        </ul>
-
-        <div class="flex items-center gap-6">
-            <div class="relative cursor-pointer group">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6 text-slate-700 group-hover:text-black transition-colors">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                </svg>
-                <span id="cart-count"
-                    class="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-white scale-0 transition-transform duration-300">
-                    0
-                </span>
-            </div>
-            <button class="bg-slate-900 text-white px-5 py-2 rounded-full text-xs
-                 font-semibold hover:bg-black transition-all">Account</button>
+    <section id="collections" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" aria-label="Product collection">
+      <article class="card bg-white rounded-3xl shadow-sm hover:shadow-xl transition-shadow overflow-hidden min-h-[520px] flex flex-col border border-gray-100">
+        <div class="h-64 w-full overflow-hidden bg-gray-100">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800" alt="Minimal wristwatch product" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
         </div>
-    </nav>
+        <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+          <div>
+            <h2 class="text-lg font-bold text-slate-800">Premium Tech Gear</h2>
+            <p class="text-sm text-slate-500 mt-2 leading-relaxed">High-performance essentials for modern workflows.</p>
+            <p class="text-lg font-extrabold mt-4">$79.00</p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 mt-6">
+            <button type="button" class="add-to-cart-btn flex-1 bg-slate-900 text-white py-3 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-black transition-all active:scale-95" data-product-id="premium-tech-gear">Add to Cart</button>
+            <button type="button" class="toggle-btn flex-1 bg-green-500 text-white py-3 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-green-600 transition-colors duration-300" aria-pressed="true">Active</button>
+          </div>
+        </div>
+      </article>
+    </section>
+    <p id="cart-message" class="mt-6 text-sm text-slate-600" role="status" aria-live="polite"></p>
+  </main>
 
-    <main class="max-w-7xl mx-auto p-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+  <script>
+    (() => {
+      const cartCount = document.getElementById('cart-count');
+      const cartButton = document.getElementById('cart-button');
+      const cartMessage = document.getElementById('cart-message');
+      const accountButton = document.getElementById('account-button');
+      let itemCount = 0;
 
-            <div
-                class="card bg-white rounded-3xl shadow-sm hover:shadow-xl transition-shadow overflow-hidden h-[520px] flex flex-col border border-gray-100">
-                <div class="h-[60%] w-full overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800"
-                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-8 flex flex-col justify-between flex-grow">
-                    <div>
-                        <h3 class="text-lg font-bold text-slate-800">Premium Tech Gear</h3>
-                        <p class="text-sm text-slate-500 mt-2 leading-relaxed">High-performance hardware for modern
-                            workflows.</p>
-                    </div>
-                    <div class="flex gap-3 mt-6">
-                        <button
-                            class="add-to-cart-btn flex-1 bg-slate-900 text-white py-3 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-black transition-all active:scale-95">
-                            Add to Cart
-                        </button>
-                        <button
-                            class="toggle-btn flex-1 bg-green-500 text-white py-3 rounded-2xl font-bold text-xs uppercase tracking-widest transition-colors duration-300">
-                            Active
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </body>
+      document.querySelectorAll('.add-to-cart-btn').forEach((button) => {
+        button.addEventListener('click', () => {
+          itemCount += 1;
+          cartCount.textContent = String(itemCount);
+          cartCount.classList.remove('hidden');
+          cartCount.classList.add('flex');
+          cartButton.setAttribute('aria-label', `Shopping cart, ${itemCount} ${itemCount === 1 ? 'item' : 'items'}`);
+          cartMessage.textContent = `Added Premium Tech Gear to your cart. Cart contains ${itemCount} ${itemCount === 1 ? 'item' : 'items'}.`;
+        });
+      });
+
+      document.querySelectorAll('.toggle-btn').forEach((button) => {
+        button.addEventListener('click', () => {
+          const isActive = button.getAttribute('aria-pressed') === 'true';
+          button.setAttribute('aria-pressed', String(!isActive));
+          button.textContent = isActive ? 'Inactive' : 'Active';
+          button.classList.toggle('bg-green-500', !isActive);
+          button.classList.toggle('hover:bg-green-600', !isActive);
+          button.classList.toggle('bg-gray-500', isActive);
+          button.classList.toggle('hover:bg-gray-600', isActive);
+          cartMessage.textContent = `Product status set to ${isActive ? 'inactive' : 'active'}.`;
+        });
+      });
+
+      cartButton.addEventListener('click', () => {
+        cartMessage.textContent = itemCount ? `Your cart contains ${itemCount} ${itemCount === 1 ? 'item' : 'items'}.` : 'Your cart is empty.';
+      });
+      accountButton.addEventListener('click', () => {
+        cartMessage.textContent = 'Account sign-in is not connected yet.';
+      });
+    })();
+  </script>
+</body>
 </html>
-            
-                    
